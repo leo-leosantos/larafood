@@ -18,7 +18,6 @@
                 <li><strong>Descrição: {{ $plan->description }}</strong></li>
 
             </ul>
-
             <form action="{{ route('plans.destroy', $plan->url) }}" method="post">
                 @method('DELETE')
                 @csrf

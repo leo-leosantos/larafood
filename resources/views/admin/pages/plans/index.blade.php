@@ -37,7 +37,7 @@
 
                     <th>Nome</th>
                     <th>Preço</th>
-                    <th width= "150" >Ações</th>
+                    <th width= "250" >Ações</th>
 
                 </thead>
                 @foreach ( $plans as $plan )
@@ -48,6 +48,8 @@
                         <td style="width: 10px;"> 
                             <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-info">Ver</a>
                             <a href="{{ route('plans.edit', $plan->url) }}" class="btn btn-warning">Editar</a>
+                            <a href="{{ route('details.plan.index', $plan->url) }}" class="btn btn-primary">Detalhes</a>
+
                         </td>
                     </tbody>
                 @endforeach

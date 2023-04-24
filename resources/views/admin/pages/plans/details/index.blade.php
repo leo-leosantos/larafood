@@ -5,7 +5,7 @@
 @section('content_header')
 
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li> 
+        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item "><a href="{{ route('plans.index') }}" >Planos</a></li>
         <li class="breadcrumb-item "><a href="{{ route('plans.show', $plan->url) }}" >{{ $plan->name }}</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('details.plan.index', $plan->url) }}" class="active" >Detalhes do Planos</a></li>
@@ -15,11 +15,12 @@
 @stop
 
 @section('content')
-    
+
 
     <div class="card">
-       
+
         <div class="card-body">
+            @include('admin.includes.alerts')
             <table class="table table-condensed">
                 <thead>
                     <th>#</th>
@@ -30,8 +31,8 @@
                     <tbody>
                         <td> {{ $detail->id }}</td>
                         <td> {{ $detail->name }}</td>
-                        <td style="width: 10px;"> 
-                            <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-info">Ver</a>
+                        <td style="width: 10px;">
+                            <a href="{{ route('details.plans.show', [$plan->url, $detail->id]) }}" class="btn btn-info">Ver</a>
                             <a href="{{ route('details.plan.edit', [$plan->url, $detail->id]) }}" class="btn btn-warning">Editar</a>
                         </td>
                     </tbody>

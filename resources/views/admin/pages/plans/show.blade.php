@@ -8,7 +8,7 @@
 @stop
 
 @section('content')
-    
+
     <div class="card">
         <div class="card-body">
             <ul>
@@ -18,6 +18,8 @@
                 <li><strong>Descrição: {{ $plan->description }}</strong></li>
 
             </ul>
+            @include('admin.includes.alerts')
+
             <form action="{{ route('plans.destroy', $plan->url) }}" method="post">
                 @method('DELETE')
                 @csrf

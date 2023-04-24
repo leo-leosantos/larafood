@@ -42,7 +42,7 @@ class DetailPlanController extends Controller
 
     public function store(StoreUpdateDetailPlan $request, $urlPlan)
     {
-        
+
         if(!$plan = $this->plan->where('url',$urlPlan)->first()){
             return redirect()->back();
         }
@@ -51,7 +51,7 @@ class DetailPlanController extends Controller
         return redirect()->route('details.plan.index', $plan->url);
     }
 
-    
+
     public function edit($urlPlan, $idDetail)
     {
         $plan = $this->plan->where('url',$urlPlan)->first();
@@ -67,13 +67,13 @@ class DetailPlanController extends Controller
     }
 
 
-    
+
     public function update(StoreUpdateDetailPlan $request, $urlPlan, $idDetail)
     {
 
         $plan = $this->plan->where('url',$urlPlan)->first();
         $detail = $this->repository->find($idDetail);
-        
+
         if(!$plan || !$detail){
             return redirect()->back();
         }
@@ -84,7 +84,7 @@ class DetailPlanController extends Controller
     }
 
 
-   
+
     public function show($urlPlan, $idDetail)
     {
         $plan = $this->plan->where('url',$urlPlan)->first();
@@ -96,6 +96,22 @@ class DetailPlanController extends Controller
         }
 
         return view('admin.pages.plans.details.show', compact('plan','detail'));
+
+    }
+
+
+    public function destroy($urlPlan, $idDetail)
+    {
+
+        $plan = $this->plan->where('url',$urlPlan)->first();
+        $detail = $this->repository->find($idDetail);
+
+        if(!$plan || !$detail){
+            return redirect()->back();
+        }
+
+            $detail->delete();
+            return redirect()->with('message','Registro detalado com sucesso')->route('details.plan.index', $plan->url);
 
     }
 }

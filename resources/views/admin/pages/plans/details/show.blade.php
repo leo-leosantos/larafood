@@ -1,55 +1,41 @@
 @extends('adminlte::page')
 
-@section('title', "Detalhes do Plano {$plan->name}")
+@section('title', "Detalhes do Plano {$detail->name}")
 
 @section('content_header')
 
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li> 
+        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item "><a href="{{ route('plans.index') }}" >Planos</a></li>
         <li class="breadcrumb-item "><a href="{{ route('plans.show', $plan->url) }}" >{{ $plan->name }}</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('details.plan.index', $plan->url) }}" class="active" >Detalhes do Planos</a></li>
 
     </ol>
-    <h1>Detalhes do Plano {{ $plan->name }} -  <a href="{{ route('details.plan.create', $plan->url) }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> ADD </a> </h1>
+    <h1>Detalhes do Plano {{ $detail->name }} -  <a href="{{ route('details.plan.create', $plan->url) }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> ADD </a> </h1>
 @stop
 
 @section('content')
-    
+
 
     <div class="card">
-       
-        <div class="card-body">
-            <table class="table table-condensed">
-                <thead>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th width= "150" >Ações</th>
-                </thead>
-                @foreach ( $details as $detail )
-                    <tbody>
-                        <td> {{ $detail->id }}</td>
-                        <td> {{ $detail->name }}</td>
-                        <td style="width: 10px;"> 
-                            <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-info">Ver</a>
-                            <a href="{{ route('details.plan.edit', [$plan->url, $detail->id]) }}" class="btn btn-warning">Editar</a>
-                        </td>
-                    </tbody>
-                @endforeach
 
-            </table>
+        <div class="card-body">
+                <ul>
+                    <li>
+                        <strong>Nome:</strong>{{ $detail->name }}
+                    </li>
+                </ul>
         </div>
+
 
         <div class="card-footer">
 
-            @if (isset($filters))
+            <form action="{{ route('details.plan.destroy',[$plan->url. $detail->id]) }}">
 
-                {!! $details->appends($filters)->links() !!}
-
-                else
-                {!! $details->links() !!}
-
-            @endif
+                @csrf
+                @method('DELETE')
+                <button type="submit" class=" btn btn-danger">Deletar o Detalhe do {{ $detail->name }}, do plano{{ $plam->name }}</button>
+            </form>
         </div>
     </div>
 

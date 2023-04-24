@@ -85,4 +85,21 @@ class PermissionController extends Controller
 
        return redirect()->route('permissions.index')->with('message','Permissão Deletada com sucesso!');
     }
+
+    public function search(Request $request)
+    {
+        $filters = $request->only('filter');
+
+
+        $permissions = $this->repository->where( function($query) use($request)  {
+                if($request->filter){
+                    $query->where('name',$request->filter)
+                            ->orWhere('description', 'LIKE' , "%{$request->filter}%");
+
+                }
+            })->paginate();
+
+        return view('admin.pages.permissions.index', compact('permissions','filters'));
+
+    }
 }

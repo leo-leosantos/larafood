@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Perfis')
+@section('title', "Permissões do Perfil {$profile->name}")
 
 @section('content_header')
 
@@ -9,7 +9,8 @@
         <li class="breadcrumb-item active"><a href="{{ route('profiles.index') }}" >Perfis</a></li>
 
     </ol>
-    <h1>Perfis -  <a href="{{ route('profiles.create') }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> ADD </a> </h1>
+    <h1>Permissões do Perfil:  <strong> {{$profile->name}}  </strong> -
+         <a href="{{ route('profiles.create') }}" class="btn btn-dark"><i class="fas fa-plus-square"></i> ADD Nova permissão </a> </h1>
 
 
 @stop
@@ -41,15 +42,12 @@
                     <th width= "250" >Ações</th>
 
                 </thead>
-                @foreach ( $profiles as $profile )
+                @foreach ( $permissions as $permission )
                     <tbody>
-                        <td> {{ $profile->id }}</td>
-                        <td> {{ $profile->name }}</td>
+                        <td> {{ $permissions->id }}</td>
+                        <td> {{ $permissions->name }}</td>
                         <td style="width: 10px;">
                             <a href="{{ route('profiles.show', $profile->id) }}" class="btn btn-info">Ver</a>
-                            <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-warning">Editar</a>
-                            <a href="{{ route('profiles.permissions', $profile->id) }}" class="btn btn-primary"><i class="fas fa-lock"></i></a>
-
                         </td>
                     </tbody>
                 @endforeach
@@ -61,10 +59,10 @@
 
             @if (isset($filters))
 
-                {!! $profiles->appends($filters)->links() !!}
+                {!! $permissions->appends($filters)->links() !!}
 
                 else
-                {!! $profiles->links() !!}
+                {!! $permissions->links() !!}
 
             @endif
         </div>

@@ -8,4 +8,12 @@ class Profile extends Model
 {
     protected $fillable = ['name', 'description'];
 
+
+
+    // get permissions
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
 }

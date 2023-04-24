@@ -5,11 +5,17 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
 
+      //Routes permissions
+      Route::any('permissions/search','ACL\PermissionController@search')->name('permissions.search');
+      Route::resource('permissions','ACL\PermissionController');
+
+    //Routes Profiles
+    Route::any('profiles/search','ACL\ProfileController@search')->name('profiles.search');
+    Route::resource('profiles','ACL\ProfileController');
     //Routes details Plan
 
     Route::delete('plans/{url}/details/{idDetail}','DetailPlanController@destroy')->name('details.plan.destroy');
     Route::get('plans/{url}/details/{idDetail}','DetailPlanController@show')->name('details.plan.show');
-
     Route::put('plans/{url}/details/{idDetail}','DetailPlanController@update')->name('details.plan.update');
     Route::get('plans/{url}/details/{idDetail}/edit','DetailPlanController@edit')->name('details.plan.edit');
     Route::post('plans/{url}/details','DetailPlanController@store')->name('details.plan.store');

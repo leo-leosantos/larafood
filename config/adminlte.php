@@ -173,13 +173,23 @@ return [
     */
 
     'menu' => [
-      
+
         [
             'text' => 'Planos',
             'url'  => 'admin/plans',
             'icon' => 'fas fa-list-alt'
         ],
-   
+        [
+            'text' => 'Perfis',
+            'url'  => 'admin/profiles',
+            'icon' => 'fas fa-address-book'
+        ],
+        [
+            'text' => 'Permissões',
+            'url'  => 'admin/permissions',
+            'icon' => 'fas fa-hand-paper'
+        ],
+
     ],
 
     /*
@@ -267,7 +277,7 @@ return [
         ],
         [
             'name' => 'Sweetalert2',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

@@ -41,19 +41,20 @@
                     <th width= "250" >Ações</th>
 
                 </thead>
-                @foreach ( $profiles as $profile )
                     <tbody>
-                        <td> {{ $profile->id }}</td>
-                        <td> {{ $profile->name }}</td>
-                        <td style="width: 10px;">
-                            <a href="{{ route('profiles.show', $profile->id) }}" class="btn btn-info">Ver</a>
-                            <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-warning">Editar</a>
-                            <a href="{{ route('profiles.permissions', $profile->id) }}" class="btn btn-primary"><i class="fas fa-lock"></i></a>
+                        @foreach ( $profiles as $profile )
+                            <tr>
+                                <td> {{ $profile->id }}</td>
+                                <td> {{ $profile->name }}</td>
+                                <td style="width: 10px;">
+                                    <a href="{{ route('profiles.show', $profile->id) }}" class="btn btn-info">Ver</a>
+                                    <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-warning">Editar</a>
+                                    <a href="{{ route('profiles.permissions', $profile->id) }}" class="btn btn-primary"><i class="fas fa-lock"></i></a>
 
-                        </td>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
-                @endforeach
-
             </table>
         </div>
 

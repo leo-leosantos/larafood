@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 25-Abr-2023 às 14:40
+-- Tempo de geração: 26-Abr-2023 às 13:03
 -- Versão do servidor: 8.0.30
 -- versão do PHP: 8.0.23
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `details_plan` (
   `id` bigint UNSIGNED NOT NULL,
   `plan_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -43,10 +43,10 @@ CREATE TABLE `details_plan` (
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -58,7 +58,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -67,15 +67,16 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(6, '2014_10_12_000000_create_users_table', 1),
-(7, '2014_10_12_100000_create_password_resets_table', 1),
-(8, '2019_08_19_000000_create_failed_jobs_table', 1),
-(9, '2023_04_20_114753_create_plans_table', 1),
-(10, '2023_04_21_143315_create_detail_plans_table', 1),
-(11, '2023_04_24_084001_create_profiles_table', 2),
-(12, '2023_04_24_141007_create_permissions_table', 3),
-(13, '2023_04_24_143750_create_permission_profile_table', 4),
-(14, '2023_04_25_103333_create_plan_profile_table', 5);
+(11, '2013_04_20_114753_create_plans_table', 1),
+(12, '2013_04_26_092328_create_tenants_table', 1),
+(13, '2014_10_12_000000_create_users_table', 1),
+(14, '2014_10_12_100000_create_password_resets_table', 1),
+(15, '2019_08_19_000000_create_failed_jobs_table', 1),
+(16, '2023_04_21_143315_create_detail_plans_table', 1),
+(17, '2023_04_24_084001_create_profiles_table', 1),
+(18, '2023_04_24_141007_create_permissions_table', 1),
+(19, '2023_04_24_143750_create_permission_profile_table', 1),
+(20, '2023_04_25_103333_create_plan_profile_table', 1);
 
 -- --------------------------------------------------------
 
@@ -84,8 +85,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -103,16 +104,6 @@ CREATE TABLE `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Extraindo dados da tabela `permissions`
---
-
-INSERT INTO `permissions` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-(2, 'tete', 'terrter', '2023-04-24 14:24:58', '2023-04-24 14:24:58'),
-(5, 'duas', 'permissions', '2023-04-24 14:34:32', '2023-04-24 14:34:32'),
-(6, 'Noa permissão', 'nova permissão', '2023-04-25 09:02:33', '2023-04-25 09:02:33'),
-(7, 'permissão de teste', 'permissão de teste', '2023-04-25 09:02:44', '2023-04-25 09:02:44');
-
 -- --------------------------------------------------------
 
 --
@@ -125,13 +116,6 @@ CREATE TABLE `permission_profile` (
   `profile_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Extraindo dados da tabela `permission_profile`
---
-
-INSERT INTO `permission_profile` (`id`, `permission_id`, `profile_id`) VALUES
-(6, 6, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -140,9 +124,9 @@ INSERT INTO `permission_profile` (`id`, `permission_id`, `profile_id`) VALUES
 
 CREATE TABLE `plans` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price` double(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -153,7 +137,7 @@ CREATE TABLE `plans` (
 --
 
 INSERT INTO `plans` (`id`, `name`, `url`, `description`, `price`, `created_at`, `updated_at`) VALUES
-(1, 'plano 3', 'plano3', 'plano fdsf', 10.00, '2023-04-23 16:33:03', '2023-04-23 16:33:03');
+(1, 'Businers', 'businers', 'Plano Empresarial', 499.99, '2023-04-26 10:02:19', '2023-04-26 10:02:19');
 
 -- --------------------------------------------------------
 
@@ -183,15 +167,36 @@ CREATE TABLE `profiles` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Extraindo dados da tabela `profiles`
+-- Estrutura da tabela `tenants`
 --
 
-INSERT INTO `profiles` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Financeiro', 'FinanceiroFinanceiroFinanceiro', '2023-04-24 11:50:22', NULL),
-(2, 'RH', 'descrrtt', '2023-04-24 11:57:57', '2023-04-24 11:57:57'),
-(3, 'TI', 'fsdfsdfd', '2023-04-24 12:06:06', '2023-04-24 12:06:06'),
-(5, 'Ascom', 'ascom', '2023-04-24 13:49:25', '2023-04-24 13:49:25');
+CREATE TABLE `tenants` (
+  `id` bigint UNSIGNED NOT NULL,
+  `plan_id` bigint UNSIGNED NOT NULL,
+  `cnpj` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` enum('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Y',
+  `subscription` date DEFAULT NULL,
+  `expires_at` date DEFAULT NULL,
+  `subscription_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subscription_active` tinyint(1) NOT NULL DEFAULT '0',
+  `subscription_suspended` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tenants`
+--
+
+INSERT INTO `tenants` (`id`, `plan_id`, `cnpj`, `name`, `url`, `email`, `logo`, `active`, `subscription`, `expires_at`, `subscription_id`, `subscription_active`, `subscription_suspended`, `created_at`, `updated_at`) VALUES
+(1, 1, '123456789', 'EspecializaTI', 'especializati', 'leandro.santos@gmail.com', NULL, 'Y', NULL, NULL, NULL, 0, 0, '2023-04-26 10:02:19', '2023-04-26 10:02:19');
 
 -- --------------------------------------------------------
 
@@ -201,14 +206,22 @@ INSERT INTO `profiles` (`id`, `name`, `description`, `created_at`, `updated_at`)
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tenant_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `users`
+--
+
+INSERT INTO `users` (`id`, `tenant_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Leandro dos Santos', 'lds.leosantos@gmail.com', NULL, '$2y$10$B./99t4byOixGgGb7bWHWu8r4Hcd87SImdAu2risfB0QdmEbS4M9q', NULL, '2023-04-26 10:02:19', '2023-04-26 10:02:19');
 
 --
 -- Índices para tabelas despejadas
@@ -278,11 +291,23 @@ ALTER TABLE `profiles`
   ADD UNIQUE KEY `profiles_name_unique` (`name`);
 
 --
+-- Índices para tabela `tenants`
+--
+ALTER TABLE `tenants`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tenants_cnpj_unique` (`cnpj`),
+  ADD UNIQUE KEY `tenants_name_unique` (`name`),
+  ADD UNIQUE KEY `tenants_url_unique` (`url`),
+  ADD UNIQUE KEY `tenants_email_unique` (`email`),
+  ADD KEY `tenants_plan_id_foreign` (`plan_id`);
+
+--
 -- Índices para tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `users_tenant_id_foreign` (`tenant_id`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -292,7 +317,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `details_plan`
 --
 ALTER TABLE `details_plan`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `failed_jobs`
@@ -304,19 +329,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de tabela `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `permission_profile`
 --
 ALTER TABLE `permission_profile`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `plans`
@@ -328,19 +353,25 @@ ALTER TABLE `plans`
 -- AUTO_INCREMENT de tabela `plan_profile`
 --
 ALTER TABLE `plan_profile`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `tenants`
+--
+ALTER TABLE `tenants`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para despejos de tabelas
@@ -365,6 +396,18 @@ ALTER TABLE `permission_profile`
 ALTER TABLE `plan_profile`
   ADD CONSTRAINT `plan_profile_plan_id_foreign` FOREIGN KEY (`plan_id`) REFERENCES `plans` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `plan_profile_profile_id_foreign` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE CASCADE;
+
+--
+-- Limitadores para a tabela `tenants`
+--
+ALTER TABLE `tenants`
+  ADD CONSTRAINT `tenants_plan_id_foreign` FOREIGN KEY (`plan_id`) REFERENCES `plans` (`id`);
+
+--
+-- Limitadores para a tabela `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_tenant_id_foreign` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

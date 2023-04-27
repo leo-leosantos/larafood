@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
+use App\Services\TenantService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -53,9 +53,9 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'cnpj' => ['required','unique:tenants'],
-            'empresa' => ['required', 'max:255','unique:tenants,name'],
+            'password' => ['required', 'string', 'min:6', 'max:16', 'confirmed'],
+            'cnpj' => ['required','numeric', 'min:14','max:14','unique:tenants'],
+            'empresa' => ['required','string', 'min:3','max:255','unique:tenants,name'],
 
         ]);
     }
@@ -68,32 +68,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // return User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
-
-            if( ! $plan = session('plan')){
+            if(!$plan = session('plan')){
                 return redirect()->route('site.home');
             }
 
-           $tenant =  $plan->tenants()->create([
-                'cnpj'=> $data['cnpj'],
-                'name'=> $data['empresa'],
-                'url'=> Str::kebab($data['empresa']),
-                'email' => $data['email'],
-                'subscription'=> now(),
-                'expires_at'=> now()->addDays(7),
-            ]);
+            $tenantService = app(TenantService::class);
 
-
-           $user = $tenant->users()->create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-            ]);
-
+            $user = $tenantService->make($plan, $data);
             return $user;
+
     }
 }

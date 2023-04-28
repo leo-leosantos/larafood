@@ -200,6 +200,11 @@ return [
             'url'  => 'admin/categories',
             'icon' => 'fas fa-layer-group'
         ],
+        [
+            'text' => 'Produtos',
+            'url'  => 'admin/products',
+            'icon' => 'fas fa-hamburger'
+        ],
 
     ],
 
@@ -292,7 +297,7 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],

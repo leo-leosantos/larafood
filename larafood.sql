@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 26-Abr-2023 às 13:03
+-- Tempo de geração: 28-Abr-2023 às 11:54
 -- Versão do servidor: 8.0.30
 -- versão do PHP: 8.0.23
 
@@ -67,16 +67,16 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(11, '2013_04_20_114753_create_plans_table', 1),
-(12, '2013_04_26_092328_create_tenants_table', 1),
-(13, '2014_10_12_000000_create_users_table', 1),
-(14, '2014_10_12_100000_create_password_resets_table', 1),
-(15, '2019_08_19_000000_create_failed_jobs_table', 1),
-(16, '2023_04_21_143315_create_detail_plans_table', 1),
-(17, '2023_04_24_084001_create_profiles_table', 1),
-(18, '2023_04_24_141007_create_permissions_table', 1),
-(19, '2023_04_24_143750_create_permission_profile_table', 1),
-(20, '2023_04_25_103333_create_plan_profile_table', 1);
+(31, '2013_04_20_114753_create_plans_table', 1),
+(32, '2013_04_26_092328_create_tenants_table', 1),
+(33, '2014_10_12_000000_create_users_table', 1),
+(34, '2014_10_12_100000_create_password_resets_table', 1),
+(35, '2019_08_19_000000_create_failed_jobs_table', 1),
+(36, '2023_04_21_143315_create_detail_plans_table', 1),
+(37, '2023_04_24_084001_create_profiles_table', 1),
+(38, '2023_04_24_141007_create_permissions_table', 1),
+(39, '2023_04_24_143750_create_permission_profile_table', 1),
+(40, '2023_04_25_103333_create_plan_profile_table', 1);
 
 -- --------------------------------------------------------
 
@@ -137,7 +137,9 @@ CREATE TABLE `plans` (
 --
 
 INSERT INTO `plans` (`id`, `name`, `url`, `description`, `price`, `created_at`, `updated_at`) VALUES
-(1, 'Businers', 'businers', 'Plano Empresarial', 499.99, '2023-04-26 10:02:19', '2023-04-26 10:02:19');
+(1, 'Businers', 'businers', 'Plano Empresarial', 499.99, '2023-04-27 13:45:09', '2023-04-27 13:45:09'),
+(2, 'Free', 'free', 'Free', 0.00, '2023-04-27 15:28:25', '2023-04-27 15:28:25'),
+(3, 'Premium', 'premium', 'Premium', 299.99, '2023-04-27 15:28:45', '2023-04-27 15:28:45');
 
 -- --------------------------------------------------------
 
@@ -176,6 +178,7 @@ CREATE TABLE `profiles` (
 CREATE TABLE `tenants` (
   `id` bigint UNSIGNED NOT NULL,
   `plan_id` bigint UNSIGNED NOT NULL,
+  `uuid` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cnpj` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -195,8 +198,8 @@ CREATE TABLE `tenants` (
 -- Extraindo dados da tabela `tenants`
 --
 
-INSERT INTO `tenants` (`id`, `plan_id`, `cnpj`, `name`, `url`, `email`, `logo`, `active`, `subscription`, `expires_at`, `subscription_id`, `subscription_active`, `subscription_suspended`, `created_at`, `updated_at`) VALUES
-(1, 1, '123456789', 'EspecializaTI', 'especializati', 'leandro.santos@gmail.com', NULL, 'Y', NULL, NULL, NULL, 0, 0, '2023-04-26 10:02:19', '2023-04-26 10:02:19');
+INSERT INTO `tenants` (`id`, `plan_id`, `uuid`, `cnpj`, `name`, `url`, `email`, `logo`, `active`, `subscription`, `expires_at`, `subscription_id`, `subscription_active`, `subscription_suspended`, `created_at`, `updated_at`) VALUES
+(1, 1, 'ba013b53-66e0-4b7a-babd-5097e56b4929', '123456789', 'EspecializaTI', 'especializa-t-i', 'leandro.santos@gmail.com', NULL, 'Y', NULL, NULL, NULL, 0, 0, '2023-04-27 13:45:11', '2023-04-27 13:45:11');
 
 -- --------------------------------------------------------
 
@@ -221,7 +224,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `tenant_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Leandro dos Santos', 'lds.leosantos@gmail.com', NULL, '$2y$10$B./99t4byOixGgGb7bWHWu8r4Hcd87SImdAu2risfB0QdmEbS4M9q', NULL, '2023-04-26 10:02:19', '2023-04-26 10:02:19');
+(1, 1, 'Leandro dos Santos', 'lds.leosantos@gmail.com', NULL, '$2y$10$RZIM0OOZRWIYQWuOP0CTduwv5eelky.a/tIVfJD7QBFOr.IRPkZoS', NULL, '2023-04-27 13:45:11', '2023-04-27 13:45:11');
 
 --
 -- Índices para tabelas despejadas
@@ -329,7 +332,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de tabela `permissions`
@@ -347,7 +350,7 @@ ALTER TABLE `permission_profile`
 -- AUTO_INCREMENT de tabela `plans`
 --
 ALTER TABLE `plans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `plan_profile`
@@ -371,7 +374,7 @@ ALTER TABLE `tenants`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para despejos de tabelas

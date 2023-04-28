@@ -47,7 +47,13 @@ class ProductController extends Controller
 
         $this->repository->create($data);
 
-        return redirect()->route('products.index')->with('success', 'Produto Cadastrado com Sucesso');
+        $notifications = [
+            'message'=>'Produto cadastrado com sucesso',
+            'alert-type' => 'success',
+
+        ];
+
+        return redirect()->route('products.index')->with($notifications);
     }
 
 
@@ -92,15 +98,23 @@ class ProductController extends Controller
 
 
         $product->update($data);
+        $notifications = [
+            'message'=>'Produto Editado com sucesso',
+            'alert-type' => 'success',
 
-        return redirect()->route('products.index')->with('message', 'Produto Editada com Sucesso');
+        ];
+
+        return redirect()->route('products.index')->with($notifications);
     }
 
 
     public function destroy($id)
     {
         if (!$product = $this->repository->find($id)) {
-            return redirect()->back()->with('error', 'item nao localizado');
+
+
+
+            return redirect()->back();
         }
 
         if( $product->image && Storage::exists($product->image)){
@@ -109,7 +123,13 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect()->route('products.index')->with('message', 'Produto deletada com sucesso');
+        $notifications = [
+            'message'=>'Produto deletado com sucesso',
+            'alert-type' => 'success',
+
+        ];
+
+        return redirect()->route('products.index')->with($notifications);
     }
 
     public function search(Request $request)

@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-
+@section('plugins.Sweetalert2', true)
 @section('title', 'Produtos')
 
 @section('content_header')
@@ -33,7 +33,7 @@
 
         </div>
         <div class="card-body">
-            @include('admin.includes.alerts')
+            @include('admin.includes.toastr')
 
             <table class="table table-condensed">
                 <thead>

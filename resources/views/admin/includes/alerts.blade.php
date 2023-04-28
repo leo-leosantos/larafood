@@ -9,10 +9,6 @@
     @endif
 
 
-@if (session('success'))
-    @section('plugins.Sweetalert2', true)
-
-@endif
 
 
 

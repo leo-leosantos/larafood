@@ -19,9 +19,9 @@ class UserController extends Controller
     public function index()
     {
         //usando o scope local
-         $users = $this->repository->latest()->tenantUser()->paginate();
+        $users = $this->repository->latest()->tenantUser()->paginate();
 
-         return view('admin.pages.users.index', compact('users'));
+        return view('admin.pages.users.index', compact('users'));
     }
 
 
@@ -29,7 +29,6 @@ class UserController extends Controller
     {
 
         return view('admin.pages.users.create');
-
     }
 
 
@@ -42,31 +41,29 @@ class UserController extends Controller
 
         $this->repository->create($data);
 
-        return redirect()->route('users.index')->with('message','Cadastro realizado com sucesso!');
+        return redirect()->route('users.index')->with('message', 'Cadastro realizado com sucesso!');
     }
 
 
     public function show($id)
     {
-        if(!$user =   $this->repository->tenantUser()->find($id)){
+        if (!$user =   $this->repository->tenantUser()->find($id)) {
             return redirect()->back();
-       }
+        }
 
 
-       return view('admin.pages.users.show', compact('user'));
+        return view('admin.pages.users.show', compact('user'));
     }
 
 
     public function edit($id)
     {
-        if(!$user =   $this->repository->tenantUser()->find($id)){
+        if (!$user =   $this->repository->tenantUser()->find($id)) {
             return redirect()->back();
-       }
+        }
 
 
-       return view('admin.pages.users.edit', compact('user'));
-
-
+        return view('admin.pages.users.edit', compact('user'));
     }
 
 
@@ -75,34 +72,32 @@ class UserController extends Controller
     {
 
 
-       if(!$users =   $this->repository->tenantUser()->find($id)){
+        if (!$users =   $this->repository->tenantUser()->find($id)) {
             return redirect()->back();
-       }
+        }
 
         $data = $request->only(['name', 'email']);
 
-        if($request->password){
+        if ($request->password) {
 
             $data['password'] =  bcrypt($request->password);
         }
 
-       $users->update($data);
+        $users->update($data);
 
-       return redirect()->route('users.index')->with('message','Cadastro Editado com sucesso!');
-
-
+        return redirect()->route('users.index')->with('message', 'Cadastro Editado com sucesso!');
     }
 
 
     public function destroy($id)
     {
-        if(!$users =   $this->repository->tenantUser()->find($id)){
+        if (!$users =   $this->repository->tenantUser()->find($id)) {
             return redirect()->back();
-       }
+        }
 
-       $users->delete();
+        $users->delete();
 
-       return redirect()->route('users.index')->with('message','Cadastro Deletado com sucesso!');
+        return redirect()->route('users.index')->with('message', 'Cadastro Deletado com sucesso!');
     }
 
 
@@ -111,15 +106,13 @@ class UserController extends Controller
         $filters = $request->only('filter');
 
 
-        $users = $this->repository->where( function($query) use($request)  {
-                if($request->filter){
-                           $query->orWhere('name', 'LIKE' , "%{$request->filter}%");
-                            $query->orWhere('email',$request->filter);
+        $users = $this->repository->where(function ($query) use ($request) {
+            if ($request->filter) {
+                $query->orWhere('name', 'LIKE', "%{$request->filter}%");
+                $query->orWhere('email', $request->filter);
+            }
+        })->latest()->tenantUser()->paginate();
 
-                }
-            })->latest()->tenantUser()->paginate();
-
-        return view('admin.pages.users.index', compact('users','filters'));
-
+        return view('admin.pages.users.index', compact('users', 'filters'));
     }
 }

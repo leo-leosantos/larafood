@@ -18,9 +18,9 @@ class ProfileController extends Controller
 
     public function index()
     {
-         $profiles = $this->repository->paginate();
+        $profiles = $this->repository->paginate();
 
-         return view('admin.pages.profiles.index', compact('profiles'));
+        return view('admin.pages.profiles.index', compact('profiles'));
     }
 
 
@@ -28,7 +28,6 @@ class ProfileController extends Controller
     {
 
         return view('admin.pages.profiles.create');
-
     }
 
 
@@ -36,31 +35,29 @@ class ProfileController extends Controller
     {
         $this->repository->create($request->all());
 
-        return redirect()->route('profiles.index')->with('message','Cadastro realizado com sucesso!');
+        return redirect()->route('profiles.index')->with('message', 'Cadastro realizado com sucesso!');
     }
 
 
     public function show($id)
     {
-        if(!$profile =   $this->repository->find($id)){
+        if (!$profile =   $this->repository->find($id)) {
             return redirect()->back();
-       }
+        }
 
 
-       return view('admin.pages.profiles.show', compact('profile'));
+        return view('admin.pages.profiles.show', compact('profile'));
     }
 
 
     public function edit($id)
     {
-        if(!$profile =   $this->repository->find($id)){
+        if (!$profile =   $this->repository->find($id)) {
             return redirect()->back();
-       }
+        }
 
 
-       return view('admin.pages.profiles.edit', compact('profile'));
-
-
+        return view('admin.pages.profiles.edit', compact('profile'));
     }
 
 
@@ -69,15 +66,13 @@ class ProfileController extends Controller
     {
 
 
-       if(!$profile =   $this->repository->find($id)){
+        if (!$profile =   $this->repository->find($id)) {
             return redirect()->back();
-       }
+        }
 
-       $profile->update($request->all());
+        $profile->update($request->all());
 
-       return redirect()->route('profiles.index')->with('message','Cadastro Editado com sucesso!');
-
-
+        return redirect()->route('profiles.index')->with('message', 'Cadastro Editado com sucesso!');
     }
 
     /**
@@ -88,13 +83,13 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        if(!$profile =   $this->repository->find($id)){
+        if (!$profile =   $this->repository->find($id)) {
             return redirect()->back();
-       }
+        }
 
-       $profile->delete();
+        $profile->delete();
 
-       return redirect()->route('profiles.index')->with('message','Cadastro Deletado com sucesso!');
+        return redirect()->route('profiles.index')->with('message', 'Cadastro Deletado com sucesso!');
     }
 
 
@@ -103,15 +98,13 @@ class ProfileController extends Controller
         $filters = $request->only('filter');
 
 
-        $profiles = $this->repository->where( function($query) use($request)  {
-                if($request->filter){
-                    $query->where('name',$request->filter)
-                            ->orWhere('description', 'LIKE' , "%{$request->filter}%");
+        $profiles = $this->repository->where(function ($query) use ($request) {
+            if ($request->filter) {
+                $query->where('name', $request->filter)
+                    ->orWhere('description', 'LIKE', "%{$request->filter}%");
+            }
+        })->paginate();
 
-                }
-            })->paginate();
-
-        return view('admin.pages.profiles.index', compact('profiles','filters'));
-
+        return view('admin.pages.profiles.index', compact('profiles', 'filters'));
     }
 }

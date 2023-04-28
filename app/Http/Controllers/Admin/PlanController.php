@@ -15,7 +15,7 @@ class PlanController extends Controller
 
     public function __construct(Plan $plan)
     {
-            $this->repository = $plan;
+        $this->repository = $plan;
     }
 
     public function index()
@@ -23,7 +23,7 @@ class PlanController extends Controller
 
         $plans = $this->repository->latest()->paginate();
 
-        return view('admin.pages.plans.index',[
+        return view('admin.pages.plans.index', [
             'plans' => $plans,
         ]);
     }
@@ -35,17 +35,16 @@ class PlanController extends Controller
 
     public function store(StoreUpdatePlan $request)
     {
-        $this->repository->create($request->all() );
+        $this->repository->create($request->all());
 
         return redirect()->route('plans.index');
-
     }
 
     public function show($url)
     {
         $plan = $this->repository->where('url', $url)->first();
 
-        if(!$plan){
+        if (!$plan) {
             return redirect()->back();
         }
 
@@ -59,22 +58,20 @@ class PlanController extends Controller
             ->with('details')
             ->where('url', $url)->first();
 
-        if(!$plan){
+        if (!$plan) {
             return redirect()->back();
         }
 
 
 
 
-        if( $plan->details->count() > 0 ){
-            return redirect()->back()->with('error','Existem detalhes vinculados a esse plano,
+        if ($plan->details->count() > 0) {
+            return redirect()->back()->with('error', 'Existem detalhes vinculados a esse plano,
             portanto nao é possível deletar!');
-
         }
         $plan->delete();
 
         return redirect()->route('plans.index');
-
     }
 
     public function search(Request $request)
@@ -84,20 +81,17 @@ class PlanController extends Controller
 
         $plans = $this->repository->search($request->filter);
 
-        return redirect()->route('plans.index', compact('plans','filters'));
-
-
+        return redirect()->route('plans.index', compact('plans', 'filters'));
     }
     public function edit($url)
     {
         $plan = $this->repository->where('url', $url)->first();
 
-        if(!$plan){
+        if (!$plan) {
             return redirect()->back();
         }
 
         return view('admin.pages.plans.edit', compact('plan'));
-
     }
 
     public function update(StoreUpdatePlan $request, $url)
@@ -105,15 +99,12 @@ class PlanController extends Controller
 
         $plan = $this->repository->where('url', $url)->first();
 
-        if(!$plan){
+        if (!$plan) {
             return redirect()->back();
         }
 
         $plan->update($request->all());
 
         return redirect()->route('plans.index');
-
     }
-
 }
-

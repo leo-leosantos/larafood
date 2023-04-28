@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+     //Routes Categories
+     Route::any('categories/search','CategoryController@search')->name('categories.search');
+     Route::resource('categories','CategoryController');
 
      //Routes users
      Route::any('users/search','UserController@search')->name('users.search');

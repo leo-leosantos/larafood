@@ -21,7 +21,7 @@ class PermissionController extends Controller
     {
         $permissions = $this->repository->paginate();
 
-         return view('admin.pages.permissions.index', compact('permissions'));
+        return view('admin.pages.permissions.index', compact('permissions'));
     }
 
 
@@ -29,7 +29,6 @@ class PermissionController extends Controller
     {
 
         return view('admin.pages.permissions.create');
-
     }
 
 
@@ -37,53 +36,53 @@ class PermissionController extends Controller
     {
         $this->repository->create($request->all());
 
-        return redirect()->route('permissions.index')->with('message','Cadastro realizado com sucesso!');
+        return redirect()->route('permissions.index')->with('message', 'Cadastro realizado com sucesso!');
     }
 
 
     public function show($id)
     {
-        if(!$permission =   $this->repository->find($id)){
+        if (!$permission =   $this->repository->find($id)) {
             return redirect()->back();
-       }
+        }
 
 
-       return view('admin.pages.permissions.show', compact('permission'));
+        return view('admin.pages.permissions.show', compact('permission'));
     }
 
 
     public function edit($id)
     {
-        if(!$permission =   $this->repository->find($id)){
+        if (!$permission =   $this->repository->find($id)) {
             return redirect()->back();
-       }
+        }
 
 
-       return view('admin.pages.permissions.edit', compact('permission'));
+        return view('admin.pages.permissions.edit', compact('permission'));
     }
 
 
     public function update(StoreUpdatePermission $request, $id)
     {
-        if(!$permission =   $this->repository->find($id)){
+        if (!$permission =   $this->repository->find($id)) {
             return redirect()->back();
-       }
+        }
 
-       $permission->update($request->all());
+        $permission->update($request->all());
 
-       return redirect()->route('permissions.index')->with('message','Permissão Editada com sucesso!');
+        return redirect()->route('permissions.index')->with('message', 'Permissão Editada com sucesso!');
     }
 
 
     public function destroy($id)
     {
-        if(!$permission =   $this->repository->find($id)){
+        if (!$permission =   $this->repository->find($id)) {
             return redirect()->back();
-       }
+        }
 
-       $permission->delete();
+        $permission->delete();
 
-       return redirect()->route('permissions.index')->with('message','Permissão Deletada com sucesso!');
+        return redirect()->route('permissions.index')->with('message', 'Permissão Deletada com sucesso!');
     }
 
     public function search(Request $request)
@@ -91,15 +90,13 @@ class PermissionController extends Controller
         $filters = $request->only('filter');
 
 
-        $permissions = $this->repository->where( function($query) use($request)  {
-                if($request->filter){
-                    $query->where('name',$request->filter)
-                            ->orWhere('description', 'LIKE' , "%{$request->filter}%");
+        $permissions = $this->repository->where(function ($query) use ($request) {
+            if ($request->filter) {
+                $query->where('name', $request->filter)
+                    ->orWhere('description', 'LIKE', "%{$request->filter}%");
+            }
+        })->paginate();
 
-                }
-            })->paginate();
-
-        return view('admin.pages.permissions.index', compact('permissions','filters'));
-
+        return view('admin.pages.permissions.index', compact('permissions', 'filters'));
     }
 }

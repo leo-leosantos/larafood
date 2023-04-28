@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
+
+     //Routes users
+     Route::any('users/search','UserController@search')->name('users.search');
+     Route::resource('users','UserController');
          //Routes plan x X profile
          Route::get('plans/{id}/profiles/{idProfile}/detach','ACL\PlanProfileController@detachProfilePlan')->name('plans.profiles.detach');
          Route::post('plans/{id}/profiles/','ACL\PlanProfileController@attachProfilesPlan')->name('plans.profiles.attach');

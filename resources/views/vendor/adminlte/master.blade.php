@@ -33,14 +33,14 @@
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<h1>swet</h1>
-@include('../../admin/includes/toastr')
-@include('../../admin/includes/sweetalert')
+
 
 @include('adminlte::plugins', ['type' => 'js'])
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@include('../../admin/includes/toastr')
 @yield('adminlte_js')
+
+
 @else
 <script src="{{ asset('js/app.js') }}"></script>
 @endif

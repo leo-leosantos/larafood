@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 28-Abr-2023 às 11:54
+-- Tempo de geração: 02-Maio-2023 às 13:23
 -- Versão do servidor: 8.0.30
 -- versão do PHP: 8.0.23
 
@@ -20,6 +20,53 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `larafood`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` bigint UNSIGNED NOT NULL,
+  `tenant_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `categories`
+--
+
+INSERT INTO `categories` (`id`, `tenant_id`, `name`, `url`, `description`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Roupa de Frio', 'roupa-de-frio', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Let', '2023-04-28 13:08:11', '2023-04-28 13:08:11'),
+(4, 1, 'teste updatevcvc', 'teste-updatevcvc', 'testeteste updateteste updateteste update', '2023-04-28 13:34:21', '2023-04-28 13:38:26'),
+(6, 1, 'Cat 01', 'cat-01', 'Cat 01Cat 01Cat 01', '2023-05-02 09:46:40', '2023-05-02 09:46:40');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `category_product`
+--
+
+CREATE TABLE `category_product` (
+  `id` bigint UNSIGNED NOT NULL,
+  `category_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `category_product`
+--
+
+INSERT INTO `category_product` (`id`, `category_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(2, 1, 12, NULL, NULL),
+(3, 4, 12, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -76,7 +123,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (37, '2023_04_24_084001_create_profiles_table', 1),
 (38, '2023_04_24_141007_create_permissions_table', 1),
 (39, '2023_04_24_143750_create_permission_profile_table', 1),
-(40, '2023_04_25_103333_create_plan_profile_table', 1);
+(40, '2023_04_25_103333_create_plan_profile_table', 1),
+(41, '2023_04_28_112630_create_categories_table', 2),
+(43, '2023_04_28_141405_create_products_table', 3),
+(44, '2023_05_02_094946_create_tables_table', 4);
 
 -- --------------------------------------------------------
 
@@ -158,6 +208,34 @@ CREATE TABLE `plan_profile` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint UNSIGNED NOT NULL,
+  `tenant_id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `flag` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double(10,2) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `products`
+--
+
+INSERT INTO `products` (`id`, `tenant_id`, `title`, `flag`, `image`, `price`, `description`, `created_at`, `updated_at`) VALUES
+(11, 1, 'teste', 'teste', 'tenants/ba013b53-66e0-4b7a-babd-5097e56b4929/products/S1UAE0g3EK2RzwMS1XDfK9PComjhUDWKqmXSA1Vj.png', 10.00, 'teste', '2023-05-02 08:47:27', '2023-05-02 08:47:27'),
+(12, 1, 'ytew', 'ytew', 'tenants/ba013b53-66e0-4b7a-babd-5097e56b4929/products/cJHHxSI34K9sJSn7VEnQma6cKGaqrgGpBH0vvIBK.png', 36.00, 'gfggs', '2023-05-02 09:10:09', '2023-05-02 09:10:09'),
+(13, 1, 'adsads', 'adsads', 'tenants/ba013b53-66e0-4b7a-babd-5097e56b4929/products/jpe3p6W1qEfFGxTeRSM4r3DwUNT73rANJlyDykCi.jpg', 36.00, 'dadas', '2023-05-02 09:10:53', '2023-05-02 09:10:53'),
+(14, 1, 'tete', 'tete', 'tenants/ba013b53-66e0-4b7a-babd-5097e56b4929/products/ctpXaIBer6sJBsl9oZEnwQ9YdSHuEM9G4rfGEjHW.jpg', 3.00, 'fsdfs', '2023-05-02 09:12:29', '2023-05-02 09:12:29');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `profiles`
 --
 
@@ -168,6 +246,29 @@ CREATE TABLE `profiles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tables`
+--
+
+CREATE TABLE `tables` (
+  `id` bigint UNSIGNED NOT NULL,
+  `tenant_id` bigint UNSIGNED NOT NULL,
+  `identify` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `tables`
+--
+
+INSERT INTO `tables` (`id`, `tenant_id`, `identify`, `description`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Mesa 01', 'mesa principal', NULL, '2023-05-02 10:22:52'),
+(2, 1, 'Mesa 02', 'Camarote', '2023-05-02 10:23:01', '2023-05-02 10:23:01');
 
 -- --------------------------------------------------------
 
@@ -231,6 +332,23 @@ INSERT INTO `users` (`id`, `tenant_id`, `name`, `email`, `email_verified_at`, `p
 --
 
 --
+-- Índices para tabela `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `categories_name_unique` (`name`),
+  ADD UNIQUE KEY `categories_url_unique` (`url`),
+  ADD KEY `categories_tenant_id_foreign` (`tenant_id`);
+
+--
+-- Índices para tabela `category_product`
+--
+ALTER TABLE `category_product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_product_category_id_foreign` (`category_id`),
+  ADD KEY `category_product_product_id_foreign` (`product_id`);
+
+--
 -- Índices para tabela `details_plan`
 --
 ALTER TABLE `details_plan`
@@ -287,11 +405,28 @@ ALTER TABLE `plan_profile`
   ADD KEY `plan_profile_profile_id_foreign` (`profile_id`);
 
 --
+-- Índices para tabela `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `products_title_unique` (`title`),
+  ADD UNIQUE KEY `products_flag_unique` (`flag`),
+  ADD KEY `products_tenant_id_foreign` (`tenant_id`);
+
+--
 -- Índices para tabela `profiles`
 --
 ALTER TABLE `profiles`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `profiles_name_unique` (`name`);
+
+--
+-- Índices para tabela `tables`
+--
+ALTER TABLE `tables`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tables_identify_unique` (`identify`),
+  ADD KEY `tables_tenant_id_foreign` (`tenant_id`);
 
 --
 -- Índices para tabela `tenants`
@@ -317,6 +452,18 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de tabela `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `category_product`
+--
+ALTER TABLE `category_product`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de tabela `details_plan`
 --
 ALTER TABLE `details_plan`
@@ -332,7 +479,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de tabela `permissions`
@@ -359,10 +506,22 @@ ALTER TABLE `plan_profile`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT de tabela `profiles`
 --
 ALTER TABLE `profiles`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `tables`
+--
+ALTER TABLE `tables`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `tenants`
@@ -379,6 +538,19 @@ ALTER TABLE `users`
 --
 -- Restrições para despejos de tabelas
 --
+
+--
+-- Limitadores para a tabela `categories`
+--
+ALTER TABLE `categories`
+  ADD CONSTRAINT `categories_tenant_id_foreign` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`) ON DELETE CASCADE;
+
+--
+-- Limitadores para a tabela `category_product`
+--
+ALTER TABLE `category_product`
+  ADD CONSTRAINT `category_product_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `category_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `details_plan`
@@ -399,6 +571,18 @@ ALTER TABLE `permission_profile`
 ALTER TABLE `plan_profile`
   ADD CONSTRAINT `plan_profile_plan_id_foreign` FOREIGN KEY (`plan_id`) REFERENCES `plans` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `plan_profile_profile_id_foreign` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE CASCADE;
+
+--
+-- Limitadores para a tabela `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_tenant_id_foreign` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`) ON DELETE CASCADE;
+
+--
+-- Limitadores para a tabela `tables`
+--
+ALTER TABLE `tables`
+  ADD CONSTRAINT `tables_tenant_id_foreign` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `tenants`

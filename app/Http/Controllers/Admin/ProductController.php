@@ -50,7 +50,6 @@ class ProductController extends Controller
         $notifications = [
             'message'=>'Produto cadastrado com sucesso',
             'alert-type' => 'success',
-
         ];
 
         return redirect()->route('products.index')->with($notifications);
@@ -110,10 +109,9 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+
+        dd($id);
         if (!$product = $this->repository->find($id)) {
-
-
-
             return redirect()->back();
         }
 

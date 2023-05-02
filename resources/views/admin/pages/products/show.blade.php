@@ -17,11 +17,15 @@
                 <li><strong>Descrição:</strong> {{ $product->description }}</li>
             </ul>
             @include('admin.includes.alerts')
-            <form action="{{ route('products.destroy', $product->id) }}" method="post">
+
+
+            <form action="{{ route('products.destroy', $product->id) }}"  method="post">
                 @method('DELETE')
                 @csrf
-                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Deletar o Produto: {{ $product->title }}</button>
-            </form>
+                <a href="{{ route('products.destroy', $product->id) }}"  class="btn btn-danger" title="Delete Data" >
+                    <i class="fas fa-trash"></i>Deletar o Produto: {{ $product->title }}
+                </a>
+             </form>
         </div>
     </div>
 @stop

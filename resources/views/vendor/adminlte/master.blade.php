@@ -33,11 +33,13 @@
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-
-
-@include('adminlte::plugins', ['type' => 'js'])
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 @include('../../admin/includes/toastr')
+
+@include('adminlte::plugins', ['type' => 'js'])
+
+@include('../../admin/includes/sweetalert')
+
 @yield('adminlte_js')
 
 

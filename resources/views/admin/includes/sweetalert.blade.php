@@ -1,30 +1,13 @@
 
 <script>
-    @if(Session::has('message'))
-    var type = "{{ Session::get('alert-type','info') }}"
-    switch(type){
-       case 'info':
-       toastr.info(" {{ Session::get('message') }} ");
-       break;
-
-       case 'success':
+    @if(Session::has('success'))
         Swal.fire({
-            title: {{ Session::get('message') }},
+            title: {{ Session::get('success') }},
             position: 'top-end',
             icon: 'success',
             showConfirmButton: false,
             timer: 1500
         })
-       break;
-
-       case 'warning':
-       toastr.warning(" {{ Session::get('message') }} ");
-       break;
-
-       case 'error':
-       toastr.error(" {{ Session::get('message') }} ");
-       break;
-    }
     @endif
 </script>
 <script>

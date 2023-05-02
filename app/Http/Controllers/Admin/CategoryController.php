@@ -14,6 +14,8 @@ class CategoryController extends Controller
     public function __construct(Category $category)
     {
         $this->repository = $category;
+        $this->middleware(['can:categories']);
+
     }
 
     public function index()
@@ -36,7 +38,12 @@ class CategoryController extends Controller
 
         $this->repository->create($request->all());
 
-        return redirect()->route('categories.index')->with('message','Categoria Cadastrada com Sucesso');
+        $notifications = [
+            'message'=>'Categoria Cadastrada com sucesso',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('categories.index')->with($notifications);
     }
 
 
@@ -67,7 +74,12 @@ class CategoryController extends Controller
 
          $category->update($request->all());
 
-        return redirect()->route('categories.index')->with('message','Categoria Editada com Sucesso');
+         $notifications = [
+            'message'=>'Categoria Editada com sucesso',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('categories.index')->with($notifications);
 
     }
 
@@ -80,7 +92,12 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('categories.index')->with('message','Categoria deletada com sucesso');
+        $notifications = [
+            'message'=>'Categoria Deletada com sucesso',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('categories.index')->with($notifications);
     }
 
     public function search(Request $request)

@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function(){
 
-     //Routes Tables
+        Route::get('teste-acl', function(){
+               dd( auth()->user()->permissions());
+        });
+
+        //Routes Tables
      Route::any('tables/search','TableController@search')->name('tables.search');
      Route::resource('tables','TableController');
 

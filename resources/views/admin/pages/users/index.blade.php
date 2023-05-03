@@ -49,6 +49,8 @@
                         <td style="width: 10px;">
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Editar</a>
                             <a href="{{ route('users.show', $user->id) }}" class="btn btn-info">Ver</a>
+                            <a href="{{ route('users.roles', $user->id) }}" class="btn btn-success" title="Cargos"><i class="fas fa-card"></i>Cargos</a>
+
                         </td>
                     </tbody>
                 @endforeach

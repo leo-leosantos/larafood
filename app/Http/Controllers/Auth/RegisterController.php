@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use App\Services\TenantService;
+use App\Events\TenantCreated;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -50,14 +51,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'max:16', 'confirmed'],
-            'cnpj' => ['required','numeric', 'min:14','max:14','unique:tenants'],
-            'empresa' => ['required','string', 'min:3','max:255','unique:tenants,name'],
+        // return Validator::make($data, [
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'string', 'min:6', 'max:16', 'confirmed'],
+        //     'cnpj' => ['required','numeric', 'min:14','max:14','unique:tenants'],
+        //     'empresa' => ['required','string', 'min:3','max:255','unique:tenants,name'],
 
-        ]);
+        // ]);
     }
 
     /**
@@ -73,8 +74,9 @@ class RegisterController extends Controller
             }
 
             $tenantService = app(TenantService::class);
-
             $user = $tenantService->make($plan, $data);
+
+            event( new TenantCreated($user));
             return $user;
 
     }

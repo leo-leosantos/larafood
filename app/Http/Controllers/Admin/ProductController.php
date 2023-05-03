@@ -112,7 +112,6 @@ class ProductController extends Controller
     public function destroy($id)
     {
 
-        dd($id);
         if (!$product = $this->repository->find($id)) {
             return redirect()->back();
         }

@@ -8,6 +8,8 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
                dd( auth()->user()->permissions());
         });
 
+
+
          //Routes Role x X User
          Route::get('users/{id}/roles/{idRole}/detach','ACL\RoleUserController@detachRoleUser')->name('users.roles.detach');
          Route::post('users/{id}/roles/','ACL\RoleUserController@attachRolesUser')->name('users.roles.attach');

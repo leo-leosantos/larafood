@@ -2,9 +2,7 @@
 
 namespace App\Models\Traits;
 
-use App\Models\Permission;
 use App\Models\Tenant;
-use Illuminate\Support\Arr;
 
 trait UserACLTrait
 {

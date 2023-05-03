@@ -4,15 +4,26 @@
 namespace App\Services;
 
 use App\Models\Plan;
+use App\Repositories\Contracts\TenantRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
+use Psy\CodeCleaner\AssignThisVariablePass;
 
 class TenantService
 {
 
     private $plan, $data = [];
+    private $repository;
+
+    public function __construct(TenantRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
 
-
+    public function getAllTenants()
+    {
+        return $this->repository->getAllTenants();
+    }
 
         public function make(Plan $plan, array $data )
         {

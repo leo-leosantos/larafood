@@ -20,48 +20,49 @@ class TenantService
     }
 
 
-    public function getAllTenants()
+    public function getAllTenants(int $per_page )
     {
-        return $this->repository->getAllTenants();
+        return $this->repository->getAllTenants($per_page);
     }
 
-        public function make(Plan $plan, array $data )
-        {
-            $this->plan = $plan;
-            $this->data = $data;
-            $tenant =  $this->storeTenant();
-            $user =  $this->storeUser($tenant);
+    public function getTenantByUuid(string $uuid)
+    {
+        return $this->repository->getTenantByUuid($uuid);
 
-            return $user;
+    }
 
-        }
+    public function make(Plan $plan, array $data)
+    {
+        $this->plan = $plan;
+        $this->data = $data;
+        $tenant =  $this->storeTenant();
+        $user =  $this->storeUser($tenant);
 
-
-        public function storeTenant()
-        {
-            $data = $this->data;
-            return $this->plan->tenants()->create([
-                'cnpj'=> $data['cnpj'],
-                'name'=> $data['empresa'],
-                'email' => $data['email'],
-                'subscription'=> now(),
-                'expires_at'=> now()->addDays(7),
-            ]);
-
-        }
+        return $user;
+    }
 
 
-        public function storeUser($tenant)
-        {
-            $user = $tenant->users()->create([
-                'name' => $this->data['name'],
-                'email' => $this->data['email'],
-                'password' => Hash::make($this->data['password']),
-            ]);
+    public function storeTenant()
+    {
+        $data = $this->data;
+        return $this->plan->tenants()->create([
+            'cnpj' => $data['cnpj'],
+            'name' => $data['empresa'],
+            'email' => $data['email'],
+            'subscription' => now(),
+            'expires_at' => now()->addDays(7),
+        ]);
+    }
 
-            return $user;
 
-        }
+    public function storeUser($tenant)
+    {
+        $user = $tenant->users()->create([
+            'name' => $this->data['name'],
+            'email' => $this->data['email'],
+            'password' => Hash::make($this->data['password']),
+        ]);
 
-
+        return $user;
+    }
 }

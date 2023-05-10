@@ -33,4 +33,9 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class);
     }
+
+    public function evaluations()
+    {
+        return $this->belongsToMany(Evaluation::class);
+    }
 }

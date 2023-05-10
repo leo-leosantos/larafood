@@ -37,7 +37,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('qty');
-            $table->double('total',10,2);
+            $table->double('price',10,2);
 
             $table->timestamps();
 

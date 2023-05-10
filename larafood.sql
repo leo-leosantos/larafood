@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 08-Maio-2023 às 19:06
+-- Tempo de geração: 10-Maio-2023 às 12:53
 -- Versão do servidor: 8.0.30
 -- versão do PHP: 8.0.23
 
@@ -71,6 +71,14 @@ CREATE TABLE `category_product` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Extraindo dados da tabela `category_product`
+--
+
+INSERT INTO `category_product` (`id`, `category_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, NULL, NULL),
+(2, 1, 2, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -88,6 +96,13 @@ CREATE TABLE `clients` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `clients`
+--
+
+INSERT INTO `clients` (`id`, `uuid`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, '9674e045-171d-40de-8444-718d12b71e18', 'Leandro dos Santos Api', 'lds.leosantosApi@gmail', NULL, '$2y$10$NHXkrkNDHZiKEZq0.NgDc.u1HF1B/ISaPpE2MzYhZoq1V04rEyiTS', NULL, '2023-05-10 09:49:53', '2023-05-10 09:49:53');
 
 -- --------------------------------------------------------
 
@@ -175,6 +190,27 @@ CREATE TABLE `orders` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Extraindo dados da tabela `orders`
+--
+
+INSERT INTO `orders` (`id`, `tenant_id`, `identify`, `client_id`, `table_id`, `total`, `status`, `comment`, `created_at`, `updated_at`) VALUES
+(1, 1, 'nqpst362', NULL, NULL, 90.00, 'open', NULL, '2023-05-09 14:17:13', '2023-05-09 14:17:13'),
+(2, 1, '4v69n8o1', NULL, NULL, 90.00, 'open', NULL, '2023-05-09 14:19:02', '2023-05-09 14:19:02'),
+(3, 1, 'v2648164', NULL, NULL, 90.00, 'open', NULL, '2023-05-09 14:19:06', '2023-05-09 14:19:06'),
+(4, 1, 'x46vlyk9', NULL, NULL, 90.00, 'open', NULL, '2023-05-09 14:19:51', '2023-05-09 14:19:51'),
+(5, 1, 'fc5rb5n4', NULL, NULL, 90.00, 'open', NULL, '2023-05-09 14:21:56', '2023-05-09 14:21:56'),
+(6, 1, 'utk36907', NULL, NULL, 90.00, 'open', '', '2023-05-09 14:22:36', '2023-05-09 14:22:36'),
+(7, 1, 'u69bys1l', NULL, NULL, 90.00, 'open', 'Sem queijo', '2023-05-09 14:33:34', '2023-05-09 14:33:34'),
+(8, 1, 'p5gf1761', NULL, NULL, 90.00, 'open', 'Sem queijo', '2023-05-09 16:22:38', '2023-05-09 16:22:38'),
+(9, 1, 'yvacx60g', NULL, NULL, 183.00, 'open', 'Sem queijo', '2023-05-10 09:15:56', '2023-05-10 09:15:56'),
+(10, 1, '4peu76tc', NULL, NULL, 183.00, 'open', 'Sem queijo', '2023-05-10 09:30:54', '2023-05-10 09:30:54'),
+(11, 1, '3x68d84g', NULL, NULL, 183.00, 'open', 'Sem queijo', '2023-05-10 09:32:50', '2023-05-10 09:32:50'),
+(12, 1, '0dy5o6x4', NULL, NULL, 183.00, 'open', 'Sem queijo', '2023-05-10 09:38:58', '2023-05-10 09:38:58'),
+(13, 1, 'vk0wojt4', NULL, NULL, 108.00, 'open', 'Sem queijo', '2023-05-10 09:39:35', '2023-05-10 09:39:35'),
+(14, 1, '1s7v5p3t', 1, NULL, 108.00, 'open', 'Sem queijo', '2023-05-10 09:51:25', '2023-05-10 09:51:25'),
+(15, 1, '34le7fb4', 1, 1, 108.00, 'open', 'Sem queijo', '2023-05-10 09:53:00', '2023-05-10 09:53:00');
+
 -- --------------------------------------------------------
 
 --
@@ -186,10 +222,21 @@ CREATE TABLE `order_product` (
   `order_id` bigint UNSIGNED NOT NULL,
   `product_id` bigint UNSIGNED NOT NULL,
   `qty` int NOT NULL,
-  `total` double(10,2) NOT NULL,
+  `price` double(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `order_product`
+--
+
+INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `qty`, `price`, `created_at`, `updated_at`) VALUES
+(3, 12, 1, 3, 36.00, NULL, NULL),
+(4, 12, 2, 5, 15.00, NULL, NULL),
+(5, 13, 1, 3, 36.00, NULL, NULL),
+(6, 14, 1, 3, 36.00, NULL, NULL),
+(7, 15, 1, 3, 36.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -261,6 +308,13 @@ CREATE TABLE `personal_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Extraindo dados da tabela `personal_access_tokens`
+--
+
+INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `created_at`, `updated_at`) VALUES
+(1, 'App\\Models\\Client', 1, 'PC', '2f6c839c09b081ee4c4a4ce472c41883fe246801c77ede09a55141bc9d408283', '[\"*\"]', '2023-05-10 09:53:00', '2023-05-10 09:49:59', '2023-05-10 09:53:00');
+
 -- --------------------------------------------------------
 
 --
@@ -322,7 +376,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `tenant_id`, `uuid`, `title`, `flag`, `image`, `price`, `description`, `created_at`, `updated_at`) VALUES
-(1, 1, '06b0b813-a8c5-4a24-ab70-dede38af7a6a', 'teste', 'teste', 'tenants/de548853-b3d5-4da4-9151-7679ef007139/products/n1yLWaaqhlgmlv6lbcVEH7h39BVAEKl0Uaonj9ws.png', 36.00, 'tese', '2023-05-08 14:37:17', '2023-05-08 14:37:17');
+(1, 1, '06b0b813-a8c5-4a24-ab70-dede38af7a6a', 'Morango', 'morango', 'tenants/de548853-b3d5-4da4-9151-7679ef007139/products/n1yLWaaqhlgmlv6lbcVEH7h39BVAEKl0Uaonj9ws.png', 36.00, 'tese', '2023-05-08 14:37:17', '2023-05-10 08:26:18'),
+(2, 1, 'c7b0a8ee-e54d-49b7-9cc8-44e7906ec9b9', 'Maça', 'maca', 'tenants/de548853-b3d5-4da4-9151-7679ef007139/products/AVgl4sJJ1VA9lc8AyhF7NUw9FG67dW18iKONpnzK.png', 15.00, 'maça', '2023-05-10 08:27:03', '2023-05-10 08:27:03');
 
 -- --------------------------------------------------------
 
@@ -1336,13 +1391,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de tabela `category_product`
 --
 ALTER TABLE `category_product`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `details_plan`
@@ -1366,13 +1421,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de tabela `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `permissions`
@@ -1396,7 +1451,7 @@ ALTER TABLE `permission_role`
 -- AUTO_INCREMENT de tabela `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `plans`
@@ -1414,7 +1469,7 @@ ALTER TABLE `plan_profile`
 -- AUTO_INCREMENT de tabela `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `profiles`

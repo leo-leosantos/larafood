@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Tempo de geração: 10-Maio-2023 às 12:53
+-- Tempo de geração: 10-Maio-2023 às 17:50
 -- Versão do servidor: 8.0.30
 -- versão do PHP: 8.0.23
 
@@ -169,7 +169,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (102, '2023_05_03_082701_create_roles_table', 8),
 (103, '2023_05_03_130118_create_role_user_table', 8),
 (106, '2023_05_05_133404_create_clients_table', 9),
-(107, '2023_05_08_153621_create_orders_table', 9);
+(107, '2023_05_08_153621_create_orders_table', 9),
+(108, '2023_05_10_134315_create_evaluations_table', 10);
 
 -- --------------------------------------------------------
 
@@ -210,6 +211,41 @@ INSERT INTO `orders` (`id`, `tenant_id`, `identify`, `client_id`, `table_id`, `t
 (13, 1, 'vk0wojt4', NULL, NULL, 108.00, 'open', 'Sem queijo', '2023-05-10 09:39:35', '2023-05-10 09:39:35'),
 (14, 1, '1s7v5p3t', 1, NULL, 108.00, 'open', 'Sem queijo', '2023-05-10 09:51:25', '2023-05-10 09:51:25'),
 (15, 1, '34le7fb4', 1, 1, 108.00, 'open', 'Sem queijo', '2023-05-10 09:53:00', '2023-05-10 09:53:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `order_evaluations`
+--
+
+CREATE TABLE `order_evaluations` (
+  `id` bigint UNSIGNED NOT NULL,
+  `order_id` bigint UNSIGNED NOT NULL,
+  `client_id` bigint UNSIGNED NOT NULL,
+  `stars` int NOT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `order_evaluations`
+--
+
+INSERT INTO `order_evaluations` (`id`, `order_id`, `client_id`, `stars`, `comment`, `created_at`, `updated_at`) VALUES
+(1, 15, 1, 3, NULL, '2023-05-10 14:30:47', '2023-05-10 14:30:47'),
+(2, 15, 1, 3, NULL, '2023-05-10 14:41:35', '2023-05-10 14:41:35'),
+(3, 15, 1, 3, NULL, '2023-05-10 14:41:57', '2023-05-10 14:41:57'),
+(4, 15, 1, 3, NULL, '2023-05-10 14:42:24', '2023-05-10 14:42:24'),
+(5, 15, 1, 3, NULL, '2023-05-10 14:42:43', '2023-05-10 14:42:43'),
+(6, 15, 1, 3, NULL, '2023-05-10 14:43:16', '2023-05-10 14:43:16'),
+(7, 15, 1, 3, NULL, '2023-05-10 14:43:58', '2023-05-10 14:43:58'),
+(8, 15, 1, 3, NULL, '2023-05-10 14:44:01', '2023-05-10 14:44:01'),
+(9, 15, 1, 3, NULL, '2023-05-10 14:46:09', '2023-05-10 14:46:09'),
+(10, 15, 1, 3, NULL, '2023-05-10 14:47:39', '2023-05-10 14:47:39'),
+(11, 15, 1, 3, 'teste', '2023-05-10 14:48:33', '2023-05-10 14:48:33'),
+(12, 15, 1, 3, 'teste', '2023-05-10 14:48:46', '2023-05-10 14:48:46'),
+(13, 15, 1, 5, 'teste new', '2023-05-10 14:49:33', '2023-05-10 14:49:33');
 
 -- --------------------------------------------------------
 
@@ -313,7 +349,7 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `created_at`, `updated_at`) VALUES
-(1, 'App\\Models\\Client', 1, 'PC', '2f6c839c09b081ee4c4a4ce472c41883fe246801c77ede09a55141bc9d408283', '[\"*\"]', '2023-05-10 09:53:00', '2023-05-10 09:49:59', '2023-05-10 09:53:00');
+(1, 'App\\Models\\Client', 1, 'PC', '2f6c839c09b081ee4c4a4ce472c41883fe246801c77ede09a55141bc9d408283', '[\"*\"]', '2023-05-10 14:49:33', '2023-05-10 09:49:59', '2023-05-10 14:49:33');
 
 -- --------------------------------------------------------
 
@@ -1242,6 +1278,14 @@ ALTER TABLE `orders`
   ADD KEY `orders_tenant_id_foreign` (`tenant_id`);
 
 --
+-- Índices para tabela `order_evaluations`
+--
+ALTER TABLE `order_evaluations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_evaluations_order_id_foreign` (`order_id`),
+  ADD KEY `order_evaluations_client_id_foreign` (`client_id`);
+
+--
 -- Índices para tabela `order_product`
 --
 ALTER TABLE `order_product`
@@ -1415,13 +1459,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT de tabela `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de tabela `order_evaluations`
+--
+ALTER TABLE `order_evaluations`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `order_product`
@@ -1541,6 +1591,13 @@ ALTER TABLE `details_plan`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_tenant_id_foreign` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`id`) ON DELETE CASCADE;
+
+--
+-- Limitadores para a tabela `order_evaluations`
+--
+ALTER TABLE `order_evaluations`
+  ADD CONSTRAINT `order_evaluations_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_evaluations_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
 -- Limitadores para a tabela `order_product`

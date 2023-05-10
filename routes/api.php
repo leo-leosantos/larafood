@@ -9,7 +9,7 @@ Route::group([
     Route::post('/auth/logout','Api\Auth\AuthClientController@logout');
     Route::get('/auth/v1/my-orders', 'Api\OrderApiController@myOrders');
     Route::post('/auth/v1/orders', 'Api\OrderApiController@store');
-    Route::post('auth/v1/orders/{identify}/evaluations', 'Api\EvaluationApiController@store');
+    Route::post('auth/v1/orders/{identifyOrder}/evaluations', 'Api\EvaluationApiController@store');
 });
 
 

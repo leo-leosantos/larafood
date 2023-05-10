@@ -13,7 +13,7 @@ class OrderService
 {
 
 
-    protected $orderRepository, $tenantRepository, $tableRepository,$productRepository;
+    protected $orderRepository, $tenantRepository, $tableRepository, $productRepository;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
@@ -25,8 +25,15 @@ class OrderService
         $this->tenantRepository = $tenantRepository;
         $this->tableRepository = $tableRepository;
         $this->productRepository = $productRepository;
-
     }
+
+
+    public function getOrderByIdentify( string $identify)
+    {
+
+        return $this->orderRepository->getOrderByIdentify($identify);
+    }
+
 
     public function createNewOrder(array $order)
     {
@@ -83,13 +90,13 @@ class OrderService
     private function getProductsByOrder(array $productsOrder): array
     {
         $products = [];
-        foreach ($productsOrder as $productsOrder){
-           $product = $this->productRepository->getProductByUuid($productsOrder['identify']);
-           array_push($products, [
-            'id'=>$product->id,
-            'qty'=>$productsOrder['qty'],
-            'price'=> $product->price,
-           ]);
+        foreach ($productsOrder as $productsOrder) {
+            $product = $this->productRepository->getProductByUuid($productsOrder['identify']);
+            array_push($products, [
+                'id' => $product->id,
+                'qty' => $productsOrder['qty'],
+                'price' => $product->price,
+            ]);
         }
         return $products;
     }
@@ -98,8 +105,7 @@ class OrderService
     {
         $total = 0;
 
-        foreach($products as $product)
-        {
+        foreach ($products as $product) {
             $total += ($product['price'] * $product['qty']);
         }
 
@@ -131,5 +137,9 @@ class OrderService
         return $client;
     }
 
-
+    public function orderByClient()
+    {
+        $idClient = $this->getClientIdByOrder();
+        return $this->orderRepository->getOrdersByClientId($idClient);
+    }
 }

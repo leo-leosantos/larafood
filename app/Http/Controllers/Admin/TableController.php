@@ -55,11 +55,13 @@ class TableController extends Controller
     }
 
 
+
     public function edit($id)
     {
         if (!$table = $this->repository->find($id)) {
             return redirect()->back()->with('error', 'item nao localizado');
         }
+
         return view('admin.pages.tables.edit', compact('table'));
     }
 
@@ -110,4 +112,19 @@ class TableController extends Controller
 
         return view('admin.pages.tables.index', compact('tables', 'filters'));
     }
+
+
+    public function qrcode($identify)
+    {
+        if (!$table = $this->repository->where('uuid', $identify)->first()) {
+            return redirect()->back()->with('error', 'item nao localizado');
+        }
+
+        $tenant = auth()->user()->tenant;
+        $uri = env('URI_CLIENT') . "/{$tenant->name}/{$table->identify}";
+
+
+        return view('admin.pages.tables.qrcode', compact('uri'));
+    }
+
 }

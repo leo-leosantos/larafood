@@ -41,7 +41,7 @@
                         <th>#</th>
                         <th>Identify</th>
                         <th>Descrição</th>
-                        <th width="150">Ações</th>
+                        <th width="190">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,6 +52,8 @@
                             <td> {{ $table->description }}</td>
 
                             <td style="width: 10px;">
+                                <a href="{{ route('tables.qrcode', $table->uuid) }}" class="btn btn-default" target="_blank"><i class=" fas fa-qrcode"></i></a>
+
                                 <a href="{{ route('tables.edit', $table->id) }}" class="btn btn-warning">Editar</a>
                                 <a href="{{ route('tables.show', $table->id) }}" class="btn btn-info">Ver</a>
                             </td>

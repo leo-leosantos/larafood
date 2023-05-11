@@ -29,8 +29,9 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
         Route::any('tenants/search','TenantController@search')->name('tenants.search');
         Route::resource('tenants','TenantController');
         //Routes Tables
-     Route::any('tables/search','TableController@search')->name('tables.search');
-     Route::resource('tables','TableController');
+        Route::get('/tables/qrcode/{identify}','TableController@qrcode')->name('tables.qrcode');
+        Route::any('/tables/search','TableController@search')->name('tables.search');
+        Route::resource('tables','TableController');
 
 
     //Routes categories x X products

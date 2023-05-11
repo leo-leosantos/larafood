@@ -24,6 +24,8 @@
     @else
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @endif
+
+    <link rel="shortcut icon" href="{{ url('imgs/favicon.png') }}" type="image/png">
 </head>
 <body class="@yield('classes_body')" @yield('body_data')>
 

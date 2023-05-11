@@ -96,7 +96,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function()
 
 
     //Home dashboard
-    Route::get('/', 'PlanController@index')->name('admin.index');
+    Route::get('/', 'DashboardController@home')->name('admin.index');
 
 });
 

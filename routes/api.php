@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+Route::get('/', function(){
+    return response()->json(['message'=>'ok']);
+});
+
 Route::post('/sanctum/token','Api\Auth\AuthClientController@auth');
 Route::group([
     'middleware' => ['auth:sanctum']

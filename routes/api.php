@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function(){
-    return response()->json(['message'=>'ok']);
-});
+
 
 Route::post('/sanctum/token','Api\Auth\AuthClientController@auth');
 Route::group([
@@ -39,4 +37,9 @@ Route::group([
     Route::post('/orders', 'OrderApiController@store');
     Route::get('/orders/{identify}', 'OrderApiController@show');
 
+});
+
+//Test API
+Route::get('/', function(){
+    return response()->json(['message'=>'ok']);
 });

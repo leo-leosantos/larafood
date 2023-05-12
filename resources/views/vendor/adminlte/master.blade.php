@@ -26,6 +26,9 @@
     @endif
 
     <link rel="shortcut icon" href="{{ url('imgs/favicon.png') }}" type="image/png">
+
+    <link rel="stylesheet" href="{{ asset('/css/custom_dashboard.css') }}">
+
 </head>
 <body class="@yield('classes_body')" @yield('body_data')>
 
